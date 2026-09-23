@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
-import { Section, StructurePage } from "@/components/site/structure";
+import { PlaceholderSection } from "@/components/site/placeholder-section";
+import { PageLayout } from "@/components/site/page-layout";
 
 // 页面标题随当前语言生成，不在路由文件中硬编码展示文案。
 export async function generateMetadata() {
@@ -13,15 +14,15 @@ export default async function Page() {
 
   // 仅声明模块布局和真实跳转入口；表单、列表等仍为结构占位。
   return (
-    <StructurePage title={page("serviceDetail")} parent={{ label: page("services"), href: "/services" }}>
-      <Section title={section("services")} tone="blue" wide hero />
-      <Section title={section("serviceContent")} tone="green" />
-      <Section title={section("standards")} tone="purple" />
-      <Section title={section("customers")} tone="yellow" />
-      <Section title={section("value")} tone="peach" />
-      <Section title={section("process")} tone="pink" wide />
-      <Section title={section("consultation")} tone="teal" href="/contact#consultation" />
-      <Section title={section("backServices")} tone="gray" href="/services" />
-    </StructurePage>
+    <PageLayout title={page("serviceDetail")} parent={{ label: page("services"), href: "/services" }}>
+      <PlaceholderSection title={section("services")} tone="blue" wide hero />
+      <PlaceholderSection title={section("serviceContent")} tone="green" />
+      <PlaceholderSection title={section("standards")} tone="purple" />
+      <PlaceholderSection title={section("customers")} tone="yellow" />
+      <PlaceholderSection title={section("value")} tone="peach" />
+      <PlaceholderSection title={section("process")} tone="pink" wide />
+      <PlaceholderSection title={section("consultation")} tone="teal" href="/contact#consultation" />
+      <PlaceholderSection title={section("backServices")} tone="gray" href="/services" />
+    </PageLayout>
   );
 }

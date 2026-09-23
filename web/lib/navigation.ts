@@ -1,11 +1,12 @@
-// 只保存翻译 key 和不含语言前缀的路径，头部、移动端和页脚复用同一份导航。
-export const navigation = [
-  { label: "home", href: "/" },
-  { label: "services", href: "/services" },
-  { label: "products", href: "/products" },
-  { label: "about", href: "/about" },
-  { label: "news", href: "/news" },
-  { label: "contact", href: "/contact" },
-  { label: "partners", href: "/partners" },
-  { label: "careers", href: "/careers" },
-] as const;
+// 纯路径逻辑不依赖 React 或浏览器，便于覆盖边界情况。
+export function getNavigationCurrent(pathname: string, href: string): "page" | "location" | undefined {
+  if (pathname === href) return "page";
+  if (href !== "/" && pathname.startsWith(`${href}/`)) return "location";
+  return undefined;
+}
+
+// pathname 来自 next-intl（不含语言前缀），search/hash 来自当前浏览器地址。
+// 不重新编码查询字符串，避免重复参数、转义字符与锚点被改变。
+export function getLocaleSwitchHref(pathname: string, search: string, hash: string): string {
+  return `${pathname}${search}${hash}`;
+}

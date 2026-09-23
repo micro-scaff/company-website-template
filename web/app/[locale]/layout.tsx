@@ -3,6 +3,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/site/site-shell";
+import { StyledComponentsRegistry } from "@/components/providers/styled-components-registry";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -35,9 +36,12 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>
-          <SiteShell>{children}</SiteShell>
-        </NextIntlClientProvider>
+        <StyledComponentsRegistry>
+          {/* 客户端只需要语言上下文，展示文案由服务端组件通过 props 传入。 */}
+          <NextIntlClientProvider messages={null}>
+            <SiteShell>{children}</SiteShell>
+          </NextIntlClientProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

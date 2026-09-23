@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
-import { Section, StructurePage } from "@/components/site/structure";
+import { PlaceholderSection } from "@/components/site/placeholder-section";
+import { PageLayout } from "@/components/site/page-layout";
 
 // 页面标题随当前语言生成，不在路由文件中硬编码展示文案。
 export async function generateMetadata() {
@@ -13,13 +14,13 @@ export default async function Page() {
 
   // 仅声明模块布局和真实跳转入口；表单、列表等仍为结构占位。
   return (
-    <StructurePage title={page("careerDetail")} parent={{ label: page("careers"), href: "/careers" }}>
-      <Section title={section("jobInfo")} tone="blue" wide />
-      <Section title={section("responsibilities")} tone="green" />
-      <Section title={section("requirements")} tone="purple" />
-      <Section title={section("applicationMethod")} tone="peach" wide />
-      <Section title={section("jobForm")} tone="teal" wide />
-      <Section title={section("backCareers")} tone="gray" href="/careers" wide />
-    </StructurePage>
+    <PageLayout title={page("careerDetail")} parent={{ label: page("careers"), href: "/careers" }}>
+      <PlaceholderSection title={section("jobInfo")} tone="blue" wide />
+      <PlaceholderSection title={section("responsibilities")} tone="green" />
+      <PlaceholderSection title={section("requirements")} tone="purple" />
+      <PlaceholderSection title={section("applicationMethod")} tone="peach" wide />
+      <PlaceholderSection title={section("jobForm")} tone="teal" wide />
+      <PlaceholderSection title={section("backCareers")} tone="gray" href="/careers" wide />
+    </PageLayout>
   );
 }
